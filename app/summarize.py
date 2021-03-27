@@ -91,14 +91,14 @@ def summarize():
                 v = np.zeros((100,))
             sentence_vectors.append(v)
         # similarity matrix
-        sim_mat = np.zeros([len(sentences), len(sentences)])
-        for i in range(len(sentences)):
-            for j in range(len(sentences)):
+        sim_mat = np.zeros([len(clean_sentences), len(clean_sentences)])
+        for i in range(len(clean_sentences)):
+            for j in range(len(clean_sentences)):
                 if i != j:
                     sim_mat[i][j] = cosine_similarity(sentence_vectors[i].reshape(1,100), sentence_vectors[j].reshape(1,100))[0,0]
         nx_graph = nx.from_numpy_array(sim_mat)
         scores = nx.pagerank(nx_graph)
-        ranked_sentences = sorted(((scores[i],s) for i,s in enumerate(sentences)), reverse=True)
+        ranked_sentences = sorted(((scores[i],s) for i,s in enumerate(clean_sentences)), reverse=True)
         # Extract top 10 sentences as the summary
         for i in range(1):
             text=(ranked_sentences[i][1])
