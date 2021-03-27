@@ -32,6 +32,7 @@ def summarize():
     text = request.form.get('text') # text that the user input
     models = request.form.get('model') # summarization model that user chooses
     print("successfully received", text, "and", models)
+    
 
     if models == 't5':
         preprocess_text = text.strip().replace("\n","")
@@ -48,7 +49,7 @@ def summarize():
                                     early_stopping=True)
 
         output = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
-        # text= 'f{output}'
+        text=output
         return jsonify({"result": text, "model": models}) # returns a json of text
     
     elif models == 'pagerank':
@@ -88,7 +89,7 @@ def summarize():
                 v = sum([word_embeddings.get(w, np.zeros((100,))) for w in i.split()])/(len(i.split())+0.001)
             else:
                 v = np.zeros((100,))
-        sentence_vectors.append(v)
+            sentence_vectors.append(v)
         # similarity matrix
         sim_mat = np.zeros([len(sentences), len(sentences)])
         for i in range(len(sentences)):
