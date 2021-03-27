@@ -21,7 +21,7 @@
       }
       
       .detect-form{
-            height: 80%;
+            height: 100%;
           width: 50%;
           background-color: white;
           position: absolute;
@@ -30,8 +30,11 @@
           transform: translate(-50%, -50%);
           -ms-transform: translate(-50%, -50%);
           border-radius: 20px;
+          padding: 20px;
 
       }
+
+
 
       .form-group{
           width: 100%;
@@ -97,7 +100,7 @@
 
     <div class="topnav">
         <a href="index.html">Home</a>
-        <a  href="classification_form.php">Detect Fake News</a>
+        <a  href="classification_form.html">Detect Fake News</a>
         <a class="active" href="#summarize">Summarize News</a>
 
     </div>
@@ -107,30 +110,30 @@
         <div class='detect-form'>
             <h1><b>News Summarization</b></h1>
             <p>Get a short, summarized version of a news article. </p>
-            <p>Input a news article and click on the <i>Summarize</i> button. </p>
 
             <!-- DROPDOWN TO SELECT MODEL -->
-            Please select the summarization model that you want
-            <select name="model" id="model"> 
+            <p>Please select the summarization model that you want: &nbsp;<select name="model" id="model"> 
                 <option value="pagerank">PageRank</option>
                 <option value="t5" selected>Google's T5</option>
                 <option value="bert">BERT</option>
-            </select>
+            </select></p>
+
             
 
             <!-- FORM TO PASTE ARTICLE -->
             <div class="form-group">
-            <label for="news">News Text</label>
-            <textarea rows="20" cols = "100" class="form-control" name="article" id="article"></textarea>
+            <label for="news">Insert a news text</label>
+            <textarea rows="15" cols = "100" class="form-control" name="article" id="article"></textarea>
             </div>
 
             <!-- SUMMARIZE BUTTON -->
             <button type='button' class="btn btn-primary"  id='summarize' onclick='summarize()'><span>Summarize</span></button>
-
+            <br><br>
              <!-- OUTPUT OF RESULT -->
-            <div id='result'>
-
-            </div>
+            <h5><b>Summarized text</b></h5>
+            <!-- <div id='result'> -->
+                <textarea id='result'rows="15" cols = "100" class="form-control" name="article" id="article" readonly></textarea>
+            <!-- </div> -->
         </div>
         
         
