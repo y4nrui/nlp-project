@@ -108,17 +108,81 @@
             <h1><b>News Summarization</b></h1>
             <p>Get a short, summarized version of a news article. </p>
             <p>Input a news article and click on the <i>Summarize</i> button. </p>
-            <form method= "POST" class='testing' action="summarization.php">
-                <div class="form-group">
-                <label for="news">News Text</label>
-                <textarea rows="20" cols = "100" class="form-control" name="article"></textarea>
-                </div>
 
-                <input type="submit" class="btn btn-default" name="submit" value="Summarize">
-            </form>
+            <!-- DROPDOWN TO SELECT MODEL -->
+            Please select the summarization model that you want
+            <select name="model" id="model"> 
+                <option value="pagerank">PageRank</option>
+                <option value="t5" selected>Google's T5</option>
+                <option value="bert">BERT</option>
+            </select>
+            
+
+            <!-- FORM TO PASTE ARTICLE -->
+            <div class="form-group">
+            <label for="news">News Text</label>
+            <textarea rows="20" cols = "100" class="form-control" name="article" id="article"></textarea>
+            </div>
+
+            <!-- SUMMARIZE BUTTON -->
+            <button type='button' class="btn btn-primary"  id='summarize' onclick='summarize()'><span>Summarize</span></button>
+
+             <!-- OUTPUT OF RESULT -->
+            <div id='result'>
+
+            </div>
         </div>
-
+        
+        
     </section>
+
+    <script>
+
+        function renderPage(json_obj) {
+            var result = json_obj.result;
+            document.getElementById('result').innerHTML = 
+            `
+                <p style="font-weight:bold">${result}</p>
+            `;
+
+        }
+
+        function summarize() {
+            var text = document.getElementById('article').value;
+            var model = document.getElementById('model').value;
+
+            
+            // Step 1
+            var request = new XMLHttpRequest();
+
+            // Step 2
+            // Register function
+            request.onreadystatechange = function() {
+                // Step 5
+                if( this.readyState == 4 && this.status == 200 ) {
+                    // Response is ready
+                    console.log('successfully retrieved summarized text from backend');
+                    var json_obj = JSON.parse(request.responseText);
+                    console.log(json_obj);
+                    renderPage(json_obj);
+                }
+                // else if( request.readyState == 4 && request.status == 404 ) {
+                //     console.log('Fail to retrieve request')
+                }
+
+            // Step 3
+            var url = `http://localhost:5001/summarize`; 
+
+            // request.open("GET", url, true); 
+            // request.send();
+
+            request.open("POST", url, true); 
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+            request.send("text=" + text + "&model=" + model); // query parameters
+
+        }
+
+    </script>
 
 
 

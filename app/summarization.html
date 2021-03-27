@@ -1,18 +1,4 @@
-<?php
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    if (empty($_POST['article'])) {
-        echo "<script>
-        alert('No article to process');
-        window.location.href='summarization_form.php';
-        </script>";
-    } else {
-        $article = $_POST['article'];
-    }
-    
-  }
-?>
 
 <!DOCTYPE html>
 <html lang="en">
