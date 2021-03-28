@@ -54,7 +54,6 @@ def summarize():
         return jsonify({"result": text, "model": models}) # returns a json of text
     
     elif models == 'bert':
-        print("yes")
         model2 = Summarizer()
         text = model2(text)
     
