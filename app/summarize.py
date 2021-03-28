@@ -102,7 +102,7 @@ def summarize():
         scores = nx.pagerank(nx_graph)
         ranked_sentences = sorted(((scores[i],s) for i,s in enumerate(sentences)), reverse=True)
         # Extract top 10 sentences as the summary
-        for i in range(1):
+        for i in range(3):
             text=(ranked_sentences[i][1])
             return jsonify({"result": text, "model": models}) # returns a json of text
         
