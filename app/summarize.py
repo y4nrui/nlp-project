@@ -14,6 +14,7 @@ from nltk.tokenize import sent_tokenize
 from nltk.corpus import stopwords
 from sklearn.metrics.pairwise import cosine_similarity
 import networkx as nx
+from summarizer import Summarizer
 
 
 model = T5ForConditionalGeneration.from_pretrained('t5-small')
@@ -51,6 +52,14 @@ def summarize():
         output = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
         text=output
         return jsonify({"result": text, "model": models}) # returns a json of text
+    
+    elif models == 'bert':
+        print("yes")
+        model2 = Summarizer()
+        text = model2(text)
+    
+        return jsonify({"result": text, "model": models}) # returns a json of text
+
     
     elif models == 'pagerank':
         sentences=(sent_tokenize(text))
@@ -91,18 +100,19 @@ def summarize():
                 v = np.zeros((100,))
             sentence_vectors.append(v)
         # similarity matrix
-        sim_mat = np.zeros([len(clean_sentences), len(clean_sentences)])
-        for i in range(len(clean_sentences)):
-            for j in range(len(clean_sentences)):
+        sim_mat = np.zeros([len(sentences), len(sentences)])
+        for i in range(len(sentences)):
+            for j in range(len(sentences)):
                 if i != j:
                     sim_mat[i][j] = cosine_similarity(sentence_vectors[i].reshape(1,100), sentence_vectors[j].reshape(1,100))[0,0]
         nx_graph = nx.from_numpy_array(sim_mat)
         scores = nx.pagerank(nx_graph)
-        ranked_sentences = sorted(((scores[i],s) for i,s in enumerate(clean_sentences)), reverse=True)
+        ranked_sentences = sorted(((scores[i],s) for i,s in enumerate(sentences)), reverse=True)
         # Extract top 10 sentences as the summary
         for i in range(1):
             text=(ranked_sentences[i][1])
             return jsonify({"result": text, "model": models}) # returns a json of text
+        
 
 
 if __name__ == '__main__':
