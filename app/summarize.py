@@ -53,12 +53,6 @@ def summarize():
         text=output
         return jsonify({"result": text, "model": models}) # returns a json of text
     
-    elif models == 'bert':
-        model2 = Summarizer()
-        text = model2(text)
-    
-        return jsonify({"result": text, "model": models}) # returns a json of text
-
     
     elif models == 'pagerank':
         sentences=(sent_tokenize(text))
