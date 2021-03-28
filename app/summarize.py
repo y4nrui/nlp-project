@@ -55,15 +55,8 @@ def summarize():
     
     
     elif models == 'pagerank':
-        sentences=(sent_tokenize(text))
-        word_embeddings = {}
-        f = open('./word_embeddings/glove.6B.100d.txt', encoding='utf-8')
-        for line in f:
-            values = line.split()
-            word = values[0]
-            coefs = np.asarray(values[1:], dtype='float32')
-            word_embeddings[word] = coefs
-        f.close()
+        sentences=[] 
+        sentences = sent_tokenize(text)
         # remove punctuations, numbers and special characters
         clean_sentences = pd.Series(sentences).str.replace("[^a-zA-Z]", " ")
         # make alphabets lowercase
@@ -102,9 +95,10 @@ def summarize():
         scores = nx.pagerank(nx_graph)
         ranked_sentences = sorted(((scores[i],s) for i,s in enumerate(sentences)), reverse=True)
         # Extract top 10 sentences as the summary
+        text=""
         for i in range(3):
-            text=(ranked_sentences[i][1])
-            return jsonify({"result": text, "model": models}) # returns a json of text
+            text = text + ranked_sentences[i][1] + "."
+        return jsonify({"result": text, "model": models}) # returns a json of text
         
 
 
