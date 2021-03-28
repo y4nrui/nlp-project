@@ -144,7 +144,7 @@
             </div>
 
             <!-- SUMMARIZE BUTTON -->
-            <button type='button' class="btn btn-primary"  id='summarize' onclick='summarize()'><span>Classify</span></button>
+            <button type='button' class="btn btn-primary"  id='summarize' onclick='classify()'><span>Classify</span></button>
             <br><br>
              <!-- OUTPUT OF RESULT -->
             <h5><b>Classification result</b></h5>
@@ -157,7 +157,15 @@
 
             function renderPage(json_obj) {
                 var result = json_obj.result;
-                document.getElementById('result').innerText = result;
+                var message = "";
+                if (result == 1) {
+                    message = "This piece of news is likely to be TRUE";
+                } else if (result == 0) {
+                    message = "This piece of news is likely to be FAKE";
+                } else {
+                    message = "Sorry, there seems to be an error";
+                }
+                document.getElementById('result').innerText = message;
     
             }
     
