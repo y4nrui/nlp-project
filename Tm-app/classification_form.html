@@ -69,10 +69,12 @@
 
               
         .form-group{
+            margin-top: 90px;
             width: 50%;
-            position: absolute;
-            top: 20%;
-            left: 40%;
+            float: left;
+            padding: 20px;
+
+
         }
 
         .active{
@@ -92,6 +94,8 @@
         li:hover a{
             color: black;
         }
+
+
   </style>
 
 
@@ -128,16 +132,20 @@
 
             <!-- FORM TO PASTE ARTICLE -->
             <div class="form-group">
-                <label for="news">Insert a news text</label>
+                <h5><b>Insert a News Text</b></h5>
                 <textarea rows="15" cols = "100" class="form-control" name="article" id="article"></textarea>
                 <br>
                 <button type='button' class="btn btn-primary"  id='summarize' onclick='classify()'><span>Classify</span></button>
                 <br><br>
+
+            </div>
+
+            <div class="form-group">
                 <!-- OUTPUT OF RESULT -->
                 <h5><b>Classification result</b></h5>
-                
+
                 <div id='result'>
-                    <textarea id='result'rows="10" cols = "100" class="form-control" name="article" id="article" readonly></textarea> 
+                    <textarea id='result'rows="15" cols = "100" class="form-control" name="article" id="article" readonly></textarea> 
                 </div> 
             </div>
 

@@ -153,10 +153,10 @@
 
               
         .form-group{
+            margin-top: 90px;
             width: 50%;
-            position: absolute;
-            top: 20%;
-            left: 40%;
+            float: left;
+            padding: 20px;
 
         }
 
@@ -177,6 +177,7 @@
         li:hover a{
             color: black;
         }
+
   </style>
 
 
@@ -214,23 +215,28 @@
                 <option value="t5" selected>Google's T5</option>
             </select></p>
 
-            
+            <div class="float-divs">
 
             <!-- FORM TO PASTE ARTICLE -->
             <div class="form-group">
-                <label for="news">Insert a news text</label>
+                <h5><b>Insert a News Text</b></h5>
                 <textarea rows="15" cols = "100" class="form-control" name="article" id="article"></textarea>
                 
                 <br>
                 <!-- SUMMARIZE BUTTON -->
                 <button type='button' class="btn btn-primary"  id='summarize' onclick='summarize()'><span>Summarize</span></button>
                 <br>
+
+
+            </div>
+
+            <div class="form-group">
                 <!-- OUTPUT OF RESULT -->
                 <h5><b>Summarized text</b></h5>
                 <textarea id='result'rows="15" cols = "100" class="form-control" name="article" id="article" readonly></textarea>
             </div>
 
-
+        </div>
 
             <!-- <div id='result'> -->
 
