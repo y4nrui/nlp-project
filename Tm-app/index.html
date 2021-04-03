@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+      /* #about{
+          background-image: url('assets/img/home.png');
+          background-size: cover;
+          height: 1080px;
+      } */
+
+      /* Container needed to position the button. Adjust the width as needed */
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
+        }
+
+        li{
+
+            padding: 25px;
+        }
+
+        li a {
+        display: block;
+        padding: 20px;
+        text-decoration: none;
+        text-align: center;
+        font-size: large;
+        color: white;
+        }
+
+
+
+        li a:hover{
+            text-decoration: none;
+            color: black;
+        }
+        
+
+        /* Change the link color on hover */
+        li:hover {
+            background-color: white;
+            color: black;
+
+
+        }
+     
+        .side-nav{
+            width:30%;
+            position: absolute;
+            height: 100%;
+
+            float: left;
+            background-image: url(assets/img/darkblue.jpeg);
+        }
+
+
+
+        #about{
+            float: right;
+            width: 70%;
+            background-color: lightgrey;
+            height: 100vh;
+            text-align: center;
+            background-image: url(assets/img/fakenewswords.jpg);
+
+        }
+
+        #about h1{
+            color: white;
+            
+        }
+
+        #about p{
+            color: white;
+            font-size: large;
+            padding-left: 200px ;
+            padding-right: 200px;
+            margin-top: 90px;
+
+        }
+        .active{
+            background-color: white;
+
+        }
+
+        .active a{
+            color: black;
+        }
+
+        
+        li:hover a{
+            color: black;
+        }
+
+  </style>
+
+</head>
+<body>
+
+
+
+    <div class="side-nav">
+        <ul>
+            <li class="active"><b><a  href="#home">Home</a></b></li>
+            <li><b> <a href="classification_form.html">Detect Fake News</a></b></li>
+            <li><b><a href="summarization_form.html">Summarize News</a></b></li>
+        </ul>
+
+
+    </div>
+    <section id="about"><br>
+        <h1> Getting real about fake news</h1>
+        <p>As of October 2020, about 59% of global population were active internet users and a predicted 90% of projected world population by 2030. There is an urgent need to ensure that news articles presented to general public are accurate and not misleading.</p>
+        <!-- <img src="assets/img/home.png" alt="home"> -->
+        <br><br>
+        <form method="get" action="classification_form.html">
+            <button class="btn" type="submit">Detect now</button>
+        </form>
+    </section>
+
+
+</body>
+</html>

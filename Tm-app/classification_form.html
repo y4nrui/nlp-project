@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+
+
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
+        }
+
+        li{
+            padding: 25px;
+        }
+
+        li a {
+        display: block;
+        padding: 20px;
+        text-decoration: none;
+        text-align: center;
+        font-size: large;
+        color: white;
+        
+        }
+
+        li a:hover{
+            text-decoration: none;
+            color: black;
+        }
+        
+
+        /* Change the link color on hover */
+        li:hover {
+            background-color: white;
+            color: black;
+
+
+        }
+     
+        .side-nav{
+            width:30%;
+            position: absolute;
+            height: 100%;
+
+            float: left;
+            background-image: url(assets/img/darkblue.jpeg);
+        }
+
+        #detect{
+            float: right;
+            width: 70%;
+            background-color: lightgrey;
+            height: 100vh;
+            text-align: center;
+            background-image: url(assets/img/summarization.jpeg);
+            color: white;
+        }
+
+
+              
+        .form-group{
+            width: 50%;
+            position: absolute;
+            top: 20%;
+            left: 40%;
+        }
+
+        .active{
+            background-color: white;
+
+        }
+
+        .active a{
+            color: black;
+        }
+
+
+        #model{
+            color: black;
+        }
+
+        li:hover a{
+            color: black;
+        }
+  </style>
+
+
+</head>
+<body>
+    <div class="side-nav">
+        <ul>
+            <li><b><a  href="index.html">Home</a></b></li>
+            <li class="active"><b> <a href="#classification">Detect Fake News</a></b></li>
+            <li><b><a href="summarization_form.html">Summarize News</a></b></li>
+        </ul>
+
+
+    </div>
+
+
+
+    <section id="detect">
+        
+        <!-- <div class='detect-form'></div> -->
+            <h1><b>News Classification</b></h1>
+            <p>Check whether your news article is real or fake</p>
+
+            <!-- DROPDOWN TO SELECT MODEL -->
+            <p>Please select the classification model that you want: &nbsp;<select name="model" id="model"> 
+                <option value="nbc" selected>Naive Bayes</option>
+                <option value="rfc">Random Forest</option>
+                <option value="uni_lstm">Unidirectional LSTM</option>
+                <option value="bi_lstm">Bidirectional LSTM</option>
+                <option value="glove_lstm">GloVe + LSTM</option>
+                <option value="w2v_lstm">Word2Vec + LSTM</option>
+            </select></p>
+
+
+            <!-- FORM TO PASTE ARTICLE -->
+            <div class="form-group">
+                <label for="news">Insert a news text</label>
+                <textarea rows="15" cols = "100" class="form-control" name="article" id="article"></textarea>
+                <br>
+                <button type='button' class="btn btn-primary"  id='summarize' onclick='classify()'><span>Classify</span></button>
+                <br><br>
+                <!-- OUTPUT OF RESULT -->
+                <h5><b>Classification result</b></h5>
+                
+                <div id='result'>
+                    <textarea id='result'rows="10" cols = "100" class="form-control" name="article" id="article" readonly></textarea> 
+                </div> 
+            </div>
+
+  
+    </section>
+
+
+
+
+   
+
+        <script>
+
+            function renderPage(json_obj) {
+                var result = json_obj.result;
+                var message = "";
+                if (result == 1) {
+                    message = "This piece of news is likely to be TRUE";
+                } else if (result == 0) {
+                    message = "This piece of news is likely to be FAKE";
+                } else {
+                    message = "Sorry, there seems to be an error";
+                }
+                document.getElementById('result').innerText = message;
+    
+            }
+    
+            function classify() {
+                var text = document.getElementById('article').value;
+                var model = document.getElementById('model').value;
+                console.log('running classify function');
+                
+                // Step 1
+                var request = new XMLHttpRequest();
+    
+                // Step 2
+                // Register function
+                request.onreadystatechange = function() {
+                    // Step 5
+                    if( this.readyState == 4 && this.status == 200 ) {
+                        // Response is ready
+                        console.log('successfully retrieved summarized text from backend');
+                        var json_obj = JSON.parse(request.responseText);
+                        console.log(json_obj);
+                        renderPage(json_obj);
+                    }
+                    // else if( request.readyState == 4 && request.status == 404 ) {
+                    //     console.log('Fail to retrieve request')
+                    }
+    
+                // Step 3
+                var url = `http://localhost:5002/classify`; 
+    
+                // request.open("GET", url, true); 
+                // request.send();
+    
+                request.open("POST", url, true); 
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+                request.send("text=" + text + "&model=" + model); // query parameters
+    
+            }
+    
+        </script>
+
+
+
+</body>
+</html>
